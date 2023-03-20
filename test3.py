@@ -14,7 +14,6 @@ G.add_edges_from([
     ('BU', 'TU', {'distance': 3.7}),
     ('BU', 'NBU', {'distance': 17.5}),
     ('BU', 'PTU', {'distance': 16.2}),
-    ('BU', 'RPU', {'distance': 41.2}),
     ('BU', 'RSU', {'distance': 18}),
     ('TU', 'VRU', {'distance': 13.8}),
     ('TU', 'PTU', {'distance': 15}),
@@ -38,6 +37,8 @@ G.add_edges_from([
     ('KMITL', 'NBU', {'distance': 39.2}),
 ])
 
+pos = {'BU':(7,6.4),'RMUTT':(10.4,6),'TU':(7,8),'NBU':(8,3),'PTU':(5,6.5),'MRU':(2.5,8.8),'RSU':(5.3,4),'RPU':(3,6.5),'VRU':(9,9),'EAU':(8.6,6),'MU':(1,3),'KMUTNB':(3,3.5),'CU':(4.5,2),'KMUTT':(3.5,0.5),'KMITL':(8.5,1),}
+#G.add_nodes_from(['BU', 'RMUTT', 'TU', 'NBU', 'PTU', 'MRU', 'RSU', 'RPU', 'VRU', 'EAU', 'MU', 'KMUTNB', 'CU', 'KMUTT', 'KMITL'])
 
 def search_nodes():
     global shortest_path
@@ -52,7 +53,7 @@ def search_nodes():
 
 search_nodes()
 
-pos = nx.spring_layout(G, seed=42)
+#pos = nx.spring_layout(G, seed=42)
 node_color_map = []
 for node in G.nodes():
     if node == shortest_path[0]:
@@ -64,7 +65,7 @@ for node in G.nodes():
     else:
         node_color_map.append('gray')
         
-nx.draw(G, pos, with_labels=True, node_color=node_color_map, node_size=1000)
+nx.draw_networkx(G, pos, with_labels=True, node_color=node_color_map, node_size=1000)
 
 edge_labels = nx.get_edge_attributes(G, 'distance')
 nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
