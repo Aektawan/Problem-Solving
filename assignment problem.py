@@ -37,7 +37,8 @@ G.add_edges_from([
     ('KMITL', 'NBU', {'distance': 39.2}),
 ])
 
-pos = {'BU':(7,6.4),'RMUTT':(10.4,6),'TU':(7,8),'NBU':(8,3),'PTU':(5,6.5),'MRU':(2.5,8.8),'RSU':(5.3,4),'RPU':(3,6.5),'VRU':(9,9),'EAU':(8.6,6),'MU':(1,3),'KMUTNB':(3,3.5),'CU':(4.5,2),'KMUTT':(3.5,0.5),'KMITL':(8.5,1),}
+pos = {'BU':(7,6.4),'RMUTT':(10.4,6),'TU':(7,8),'NBU':(8,3),'PTU':(5,6.5),'MRU':(2.5,8.8),'RSU':(5.3,4),
+       'RPU':(3,6.5),'VRU':(9,9),'EAU':(8.6,6),'MU':(1,3),'KMUTNB':(3,3.5),'CU':(4.5,2),'KMUTT':(3.5,0.5),'KMITL':(8.5,1),}
 
 def search_nodes():
     global shortest_path
