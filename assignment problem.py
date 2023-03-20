@@ -38,7 +38,6 @@ G.add_edges_from([
     ('KMITL', 'NBU', {'distance': 39.2}),
 ])
 
-
 def search_nodes():
     global shortest_path
     print("['BU', 'RMUTT', 'TU', 'NBU', 'PTU', 'MRU', 'RSU', 'RPU', 'VRU', 'EAU', 'MU', 'KMUTNB', 'CU', 'KMUTT', 'KMITL']")
