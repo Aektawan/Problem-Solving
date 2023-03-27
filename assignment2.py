@@ -1,7 +1,32 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import tkinter as tk
+
 
 G = nx.Graph()
+
+node_colors = {
+    'BU': 'red',
+    'RMUTT': 'blue',
+    'TU': 'green',
+    'NBU': 'purple',
+    'PTU': 'orange',
+    'MRU': 'pink',
+    'RSU': 'gray',
+    'RPU': 'brown',
+    'VRU': 'yellow',
+    'EAU': 'cyan',
+    'MU': 'magenta',
+    'KMUTNB': 'lime',
+    'CU': 'olive',
+    'KMUTT': 'teal',
+    'KMITL': 'steelblue'
+}
+nodes = list(node_colors.keys())
+colors = list(node_colors.values())
+node_color_map = [node_colors[node] for node in nodes]
+
+#G.add_nodes_from(['BU', 'RMUTT', 'TU', 'NBU', 'PTU', 'MRU', 'RSU', 'RPU', 'VRU', 'EAU', 'MU', 'KMUTNB', 'CU', 'KMUTT', 'KMITL'])
 
 G.add_edges_from([
     ('RMUTT', 'NBU', {'distance': 9.5}),
@@ -14,6 +39,7 @@ G.add_edges_from([
     ('BU', 'TU', {'distance': 3.7}),
     ('BU', 'NBU', {'distance': 17.5}),
     ('BU', 'PTU', {'distance': 16.2}),
+    ('BU', 'RPU', {'distance': 41.2}),
     ('BU', 'RSU', {'distance': 18}),
     ('TU', 'VRU', {'distance': 13.8}),
     ('TU', 'PTU', {'distance': 15}),
@@ -37,41 +63,40 @@ G.add_edges_from([
     ('KMITL', 'NBU', {'distance': 39.2}),
 ])
 
-pos = {'BU':(7,6.4),'RMUTT':(10.4,6),'TU':(7,8),'NBU':(9.5,4.3),'PTU':(5,6.5),'MRU':(2.5,8.8),'RSU':(6.5,4.5),
-       'RPU':(3,6.5),'VRU':(9,9),'EAU':(8.6,6),'MU':(1,3),'KMUTNB':(3,3.5),'CU':(4.5,2),'KMUTT':(3.5,0.5),'KMITL':(8.5,1),}
 
 def search_nodes():
-    global shortest_path
-    print("['BU', 'RMUTT', 'TU', 'NBU', 'PTU', 'MRU', 'RSU', 'RPU', 'VRU', 'EAU', 'MU', 'KMUTNB', 'CU', 'KMUTT', 'KMITL']")
     source = input("Enter beginning from: ")
     dest = input("Enter destination: ")
     shortest_path = nx.shortest_path(G, source=source, target=dest, weight='distance')
     print(f"Shortest path from {source} to {dest}: {shortest_path}")
     shortest_path_length = nx.shortest_path_length(G, source=source, target=dest, weight='distance')
-    shortest_path_length = ("%.2f"%(shortest_path_length))
     print(f"Shortest path length: {shortest_path_length}"" km")
 
 search_nodes()
 
-#pos = nx.spring_layout(G, seed=42)
-node_color_map = []
-for node in G.nodes():
-    if node == shortest_path[0]:
-        node_color_map.append('green')
-    elif node == shortest_path[-1]:
-        node_color_map.append('red')
-    elif node in shortest_path:
-        node_color_map.append('orange')
-    else:
-        node_color_map.append('gray')
-        
-nx.draw_networkx(G, pos, with_labels=True, node_color=node_color_map, node_size=1000)
-
+pos = nx.spring_layout(G, seed=42)
+nx.draw(G, pos, with_labels=True, node_color=node_color_map, node_size=1000)
 edge_labels = nx.get_edge_attributes(G, 'distance')
 nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
-
-# Draw the route
-edge_list = list(zip(shortest_path, shortest_path[1:]))
-
-plt.title("Distance of University", size=12)
 plt.show()
+
+window = tk.Tk()
+window.title("Shortest Path Finder")
+
+source_label = tk.Label(text="Source node:")
+source_label.pack()
+source_entry = tk.Entry()
+source_entry.pack()
+
+dest_label = tk.Label(text="Destination node:")
+dest_label.pack()
+dest_entry = tk.Entry()
+dest_entry.pack()
+
+search_button = tk.Button(text="Search", command=search_nodes)
+search_button.pack()
+
+result_label = tk.Label(text="")
+result_label.pack()
+
+window.mainloop()
