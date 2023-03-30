@@ -46,7 +46,7 @@ for node in G.nodes():
     elif node == shortest_path[-1]:
         node_color_map.append('red')
     elif node in shortest_path:
-        node_color_map.append('orange')
+        node_color_map.append('yellow')
     else:
         node_color_map.append('gray')
         
