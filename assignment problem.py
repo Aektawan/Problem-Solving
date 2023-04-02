@@ -64,6 +64,7 @@ def search_nodes():
         else:
             node_color_map.append('gray')
 
+    plt.figure(figsize=(12,8))
     nx.draw_networkx(G, pos, with_labels=True, node_color=node_color_map, node_size=1000)
     edge_labels = nx.get_edge_attributes(G, 'distance')
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
@@ -71,11 +72,15 @@ def search_nodes():
     plt.title("Distance of University", size=12)
     plt.show()
 
-root = tk.Tk()
-root.title("Shortest Path Finder")
 
-canvas = tk.Canvas(root, width=400, height=200)
+root = tk.Tk()
+root.title("University Distance")
+
+canvas = tk.Canvas(root, width=800, height=500)
 canvas.pack()
+
+photo = tk.PhotoImage(file="University.png")
+canvas.create_image(400, 300, image=photo)
 
 frame = tk.Frame(root)
 frame.pack(side=tk.BOTTOM)
